@@ -1,3 +1,4 @@
+require_relative "some_class"
 class Character
 
   attr_reader :powers
@@ -6,9 +7,8 @@ class Character
     @powers = []
   end
 
-  def add_power(power_name)
-    power = talk_to_witch(power_name)
-    @powers << power
+  def add_power(collaborator_class)
+    @powers << collaborator_class.talk_to_witch
   end
 
   def drink_potion(potion)
@@ -17,10 +17,6 @@ class Character
   end
 
 private
-  def talk_to_witch(power_name)
-    # this does some calculation
-  end
-
   def get_healthy(potion)
     # whatever
   end
@@ -29,6 +25,7 @@ end
 
 # everything was public
 # want to test private methods because they're complicated
+# extract to another class and make the method public
 
 # potential problems.
 # if i stub talk_to_witch, and what I say it returns is NOT what it returns...
@@ -40,3 +37,5 @@ end
 # the things it should with the right arguments? or both?
 
 # if i check that we call the right method, my test is coupled to the name of the method i'm calling, is that ok?
+
+# dont' test that methods get called, test the state of things after the method is called.
